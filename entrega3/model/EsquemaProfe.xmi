@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ER_2024:Esquema
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ER_2024="ER_2024"
+    xsi:schemaLocation="ER_2024 /entrega2/modelos/ER_2024.ecore"
+    nombre="Profe">
+  <tablas nombre="A">
+    <columnas
+        nombre="Id_A"
+        esPrimaria="true"
+        enClaveAjena="//@clavesAjenas.0 //@clavesAjenas.2"/>
+    <columnas
+        nombre="Col_A_FK_B"
+        claveAjena="//@clavesAjenas.1"
+        esUnico="true"
+        esNulo="true"/>
+  </tablas>
+  <tablas nombre="B">
+    <columnas
+        nombre="Col_B_FK_A"
+        claveAjena="//@clavesAjenas.0"
+        esNulo="true"/>
+    <columnas
+        nombre="Id_B"
+        esPrimaria="true"
+        enClaveAjena="//@clavesAjenas.1 //@clavesAjenas.3"/>
+  </tablas>
+  <tablas nombre="FK_A_B">
+    <columnas
+        nombre="Col_FK_A"
+        esPrimaria="true"
+        claveAjena="//@clavesAjenas.2"/>
+    <columnas
+        nombre="Col_FK_B"
+        esPrimaria="true"
+        claveAjena="//@clavesAjenas.3"/>
+  </tablas>
+  <clavesAjenas
+      nombre="B_FK_A"
+      columna="//@tablas.1/@columnas.0"
+      referenciada="//@tablas.0/@columnas.0"/>
+  <clavesAjenas
+      nombre="A_FK_B"
+      columna="//@tablas.0/@columnas.1"
+      referenciada="//@tablas.1/@columnas.1"/>
+  <clavesAjenas
+      nombre="FK_A"
+      columna="//@tablas.2/@columnas.0"
+      referenciada="//@tablas.0/@columnas.0"/>
+  <clavesAjenas
+      nombre="FK_B"
+      columna="//@tablas.2/@columnas.1"
+      referenciada="//@tablas.1/@columnas.1"/>
+</ER_2024:Esquema>

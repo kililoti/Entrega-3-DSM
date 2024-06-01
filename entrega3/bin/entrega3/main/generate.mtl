@@ -1,0 +1,47 @@
+[comment encoding = UTF-8 /]
+[module generate('ER_2024')]
+
+
+[template public generateElement(anEsquema : Esquema)]
+[comment @main/]
+[file (anEsquema.nombre.concat('.sql'), false, 'UTF-8')]
+CREATE DATABASE [anEsquema.nombre/];
+
+[for (t: Tabla | anEsquema.tablas) separator ('\n')]
+CREATE TABLE [t.nombre/](
+[for (c:Columna | t.columnas)]
+[if not (t.columnas -> last() = c)]
+['\t'/][c.nombre/] [obtenerTipo (c.tipo)/] [esPrimaria (c)/],
+[/if]
+[/for]
+['\t'/][t.columnas->last().nombre/] [obtenerTipo(t.columnas->last().tipo)/] [esPrimaria(t.columnas->last())/]
+);
+
+[/for]
+
+[for (c:Columna | t.columnas)]
+[for (fk: ClaveAjena | c.enClaveAjena) separator ('\n')]
+ALTER TABLE
+CONSTRAINT [c.nombre/] FOREIGN KEY ([fk.nombre/]) REFERENCES [fk.referenciada.tabla.nombre/] ([fk.referenciada.nombre/])
+[/for]
+[/for]
+[/file]
+
+[/template]
+[query public obtenerTipo(tipo:TiposER) : String =
+if tipo = TiposER::integer then 'int' else
+if tipo = TiposER::double then 'real' else
+if tipo = TiposER::string then 'varchar(40)' else
+if tipo = TiposER::fecha then 'datetime' else ''
+endif
+endif
+endif
+endif/]
+
+[query public esPrimaria (c: Columna) : String = 
+if c.esPrimaria = true then 'PRIMARY KEY' else
+if c.rango = 1 and c.esUnico then 'NOT NULL UNIQUE' else
+if c.rango = 1 then 'NOT NULL' else ''
+endif
+endif
+endif/]

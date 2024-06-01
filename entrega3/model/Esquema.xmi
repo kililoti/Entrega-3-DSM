@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ER_2024:Esquema
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ER_2024="ER_2024"
+    xsi:schemaLocation="ER_2024 /entrega2/modelos/ER_2024.ecore"
+    nombre="bbbbbb"/>
